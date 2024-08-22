@@ -13,7 +13,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AccountDetailDto {
 
-	
 	private int id;
 
 	@NotBlank(message = "Name Should Not be Blank")
@@ -22,11 +21,13 @@ public class AccountDetailDto {
 	@Email(message = "Invalid Email")
 	private String email;
 
-	
 	@NotBlank(message = "Password should not be blank")
 	@Size(min = 8, message = "Password should contain 8 characters ")
 	private String password;
 
 	@NotNull(message = "age should not be null")
 	private Integer age;
+
+	@NotBlank(message = "role dto should not be null")
+	private RoleDto roleDto;
 }
