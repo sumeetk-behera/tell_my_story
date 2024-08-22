@@ -7,4 +7,5 @@ public class Constant {
 
 	public static final String ROLE_ADDED = "Role Added Successfully";
 	public static final String STATUS_ADDED = "Status Added Successfully";
+	public static final String ACCOUNT_ADDED = "Account Added Successfully";
 }
