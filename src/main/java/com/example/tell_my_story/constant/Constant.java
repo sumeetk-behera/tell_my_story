@@ -5,5 +5,6 @@ public class Constant {
 		// TODO Auto-generated constructor stub
 	}
 
-	public static final String ROLE_ADDED = "Role added successfully";
+	public static final String ROLE_ADDED = "Role Added Successfully";
+	public static final String STATUS_ADDED = "Status Added Successfully";
 }
