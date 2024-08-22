@@ -1,5 +1,9 @@
 package com.example.tell_my_story.dto;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,13 +13,20 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AccountDetailDto {
 
+	
 	private int id;
 
+	@NotBlank(message = "Name Should Not be Blank")
 	private String name;
 
+	@Email(message = "Invalid Email")
 	private String email;
 
+	
+	@NotBlank(message = "Password should not be blank")
+	@Size(min = 8, message = "Password should contain 8 characters ")
 	private String password;
 
-	private int age;
+	@NotNull(message = "age should not be null")
+	private Integer age;
 }
