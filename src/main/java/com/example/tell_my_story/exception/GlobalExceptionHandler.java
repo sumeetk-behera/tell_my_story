@@ -10,7 +10,12 @@ import com.example.tell_my_story.dto.ResponseDto;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 	@ExceptionHandler(DataFoundException.class)
-	public ResponseEntity<ResponseDto> getDataFoundException(DataFoundException e) {
+	public ResponseEntity<ResponseDto> dataFound(DataFoundException e) {
+		return new ResponseEntity<ResponseDto>(new ResponseDto(true, e.getMessage(), null), HttpStatus.BAD_REQUEST);
+	}
+
+	@ExceptionHandler(DataNotFoundException.class)
+	public ResponseEntity<ResponseDto> dataNotFound(DataNotFoundException e) {
 		return new ResponseEntity<ResponseDto>(new ResponseDto(true, e.getMessage(), null), HttpStatus.BAD_REQUEST);
 	}
 }

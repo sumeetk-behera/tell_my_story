@@ -26,8 +26,7 @@ public class AccountDetailDto {
 	private String password;
 
 	@NotNull(message = "age should not be null")
-	private Integer age;
-
-	@NotBlank(message = "role dto should not be null")
+	private int age;
+	
 	private RoleDto roleDto;
 }
