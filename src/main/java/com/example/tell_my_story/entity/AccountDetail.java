@@ -1,10 +1,13 @@
 package com.example.tell_my_story.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -34,5 +37,9 @@ public class AccountDetail {
 	
 	@Column(name = "age")
 	private int age;
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "role_id")
+	private Role role; 
 
 }
