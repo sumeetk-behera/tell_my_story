@@ -37,9 +37,8 @@ public class AccountDetailController {
 	@PutMapping("/update/{id}")
 	public ResponseEntity<ResponseDto> updateAccountDetail(@PathVariable int id,
 			@Valid @RequestBody AccountDetailDto accountDetailDto) {
-
-		AccountDetailDto updatedAccount = accountDetailService.updateAccountDetail(id, accountDetailDto);
-		ResponseDto response = new ResponseDto(false, "Account details updated successfully", updatedAccount);
+		ResponseDto response = new ResponseDto(false, "Account details updated successfully",
+				accountDetailService.updateAccountDetail(id, accountDetailDto));
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 }
