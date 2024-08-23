@@ -1,5 +1,6 @@
 package com.example.tell_my_story.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
@@ -28,6 +29,12 @@ public class CategoryServiceImpl implements CategoryService {
 			return categoryDto;
 		}
 		throw new CategoryFoundException("A blog with the provided category name = "+categoryDto.getName()+" already exists.");
+	}
+
+	@Override
+	public List<CategoryDto> getCategory() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
