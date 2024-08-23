@@ -28,7 +28,7 @@ public class AccountDetailServiceImpl implements AccountDetailService {
 		Optional<AccountDetail> accountByEmail = accountDetailRepository.findByEmail(accountDetailDto.getEmail());
 		if (!accountByEmail.isPresent()) {
 
-			Role roleByName = roleRepository.findByRoleName(accountDetailDto.getRoleDto().getRoleName())
+			Role roleByName = roleRepository.findByRoleName(accountDetailDto.getRoleName())
 					.orElseThrow(() -> new DataNotFoundException(ExceptionConstant.ROLE_NOT_FOUND));
 
 			AccountDetail accountDetail = new AccountDetail();
@@ -38,7 +38,7 @@ public class AccountDetailServiceImpl implements AccountDetailService {
 			BeanUtils.copyProperties(newAccountDetail, accountDetailDto);
 			return accountDetailDto;
 		}
-         throw new DataFoundException(ExceptionConstant.DATA_FOUND);
+		throw new DataFoundException(ExceptionConstant.DATA_FOUND);
 	}
 
 }
