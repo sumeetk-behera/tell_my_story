@@ -30,8 +30,7 @@ public class CategoryServiceImpl implements CategoryService {
 			categoryDto.setId(savedCategory.getId());
 			return categoryDto;
 		}
-		throw new CategoryFoundException(
-				"A blog with the provided category name = " + categoryDto.getName() + " already exists.");
+		throw new CategoryFoundException(categoryDto.getName() + ExceptionConstant.CATEGORY_FOUND);
 	}
 
 	@Override
