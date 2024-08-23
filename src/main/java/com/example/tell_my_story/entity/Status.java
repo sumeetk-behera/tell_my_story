@@ -24,7 +24,7 @@ public class Status {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	private String status;
+	private String statusName;
 	
 	@OneToMany(mappedBy = "status")
 	private List<Blog> blog;

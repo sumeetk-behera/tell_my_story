@@ -13,5 +13,5 @@ public class StatusDto {
 	private int id;
 
 	@NotBlank(message = "Status should not be blank")
-	private String status;
+	private String statusName;
 }

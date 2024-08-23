@@ -28,6 +28,6 @@ public class BlogDto {
 	@NotBlank(message = "Category should not be blank")
 	private String categoryName;
 
-	private String status;
+	private String statusName;
 
 }

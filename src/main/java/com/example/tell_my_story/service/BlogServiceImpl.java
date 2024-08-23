@@ -63,7 +63,7 @@ public class BlogServiceImpl implements BlogService {
 				
 				blogDto.setPublisherId(byId2.get().getId());
 				blogDto.setUserId(byId.get().getId());
-				blogDto.setStatus(status.getStatus());
+				blogDto.setStatusName(status.getStatusName());
 				blogDto.setCategoryName(category.getName());
 				
 				return blogDto;

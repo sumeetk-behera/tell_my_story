@@ -1,5 +1,6 @@
 package com.example.tell_my_story.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
@@ -8,11 +9,14 @@ import org.springframework.stereotype.Service;
 
 import com.example.tell_my_story.constant.ExceptionConstant;
 import com.example.tell_my_story.dto.AccountDetailDto;
+import com.example.tell_my_story.dto.BlogDto;
 import com.example.tell_my_story.entity.AccountDetail;
+import com.example.tell_my_story.entity.Blog;
 import com.example.tell_my_story.entity.Role;
 import com.example.tell_my_story.exception.DataFoundException;
 import com.example.tell_my_story.exception.DataNotFoundException;
 import com.example.tell_my_story.repository.AccountDetailRepository;
+import com.example.tell_my_story.repository.BlogRepository;
 import com.example.tell_my_story.repository.RoleRepository;
 
 @Service
