@@ -15,30 +15,48 @@ import com.example.tell_my_story.exception.DataNotFoundException;
 import com.example.tell_my_story.repository.AccountDetailRepository;
 import com.example.tell_my_story.repository.RoleRepository;
 
+import jakarta.validation.Valid;
+
 @Service
 public class AccountDetailServiceImpl implements AccountDetailService {
 
 	@Autowired
 	private AccountDetailRepository accountDetailRepository;
+
 	@Autowired
 	private RoleRepository roleRepository;
 
 	@Override
 	public AccountDetailDto addAccount(AccountDetailDto accountDetailDto) {
 		Optional<AccountDetail> accountByEmail = accountDetailRepository.findByEmail(accountDetailDto.getEmail());
-		if (!accountByEmail.isPresent()) {
-
-			Role roleByName = roleRepository.findByRoleName(accountDetailDto.getRoleDto().getRoleName())
-					.orElseThrow(() -> new DataNotFoundException(ExceptionConstant.ROLE_NOT_FOUND));
-
-			AccountDetail accountDetail = new AccountDetail();
-			BeanUtils.copyProperties(accountDetailDto, accountDetail);
-			accountDetail.setRole(roleByName);
-			AccountDetail newAccountDetail = accountDetailRepository.save(accountDetail);
-			BeanUtils.copyProperties(newAccountDetail, accountDetailDto);
-			return accountDetailDto;
+		if (accountByEmail.isPresent()) {
+			throw new DataFoundException(ExceptionConstant.DATA_FOUND);
 		}
-         throw new DataFoundException(ExceptionConstant.DATA_FOUND);
+		Role roleByName = roleRepository.findByRoleName(accountDetailDto.getRoleDto().getRoleName())
+				.orElseThrow(() -> new DataNotFoundException(ExceptionConstant.ROLE_NOT_FOUND));
+		AccountDetail accountDetail = new AccountDetail();
+		BeanUtils.copyProperties(accountDetailDto, accountDetail);
+		accountDetail.setRole(roleByName);
+		AccountDetail newAccountDetail = accountDetailRepository.save(accountDetail);
+		AccountDetailDto savedAccountDetailDto = new AccountDetailDto();
+		BeanUtils.copyProperties(newAccountDetail, savedAccountDetailDto);
+
+		return savedAccountDetailDto;
 	}
 
+	@Override
+	public AccountDetailDto updateAccountDetail(int id, AccountDetailDto accountDetailDto) {
+
+		AccountDetail existingAccount = accountDetailRepository.findById(id)
+				.orElseThrow(() -> new DataNotFoundException(ExceptionConstant.ACCOUNT_NOT_FOUND));
+		Role roleByName = roleRepository.findByRoleName(accountDetailDto.getRoleDto().getRoleName())
+				.orElseThrow(() -> new DataNotFoundException(ExceptionConstant.ROLE_NOT_FOUND));
+		BeanUtils.copyProperties(accountDetailDto, existingAccount);
+		existingAccount.setRole(roleByName);
+		AccountDetail updatedAccount = accountDetailRepository.save(existingAccount);
+		AccountDetailDto updatedAccountDto = new AccountDetailDto();
+		BeanUtils.copyProperties(updatedAccount, updatedAccountDto);
+
+		return updatedAccountDto;
+	}
 }
