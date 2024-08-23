@@ -40,7 +40,7 @@ public class AccountDetailServiceImpl implements AccountDetailService {
 			BeanUtils.copyProperties(newAccountDetail, accountDetailDto);
 			return accountDetailDto;
 		}
-		throw new DataFoundException(ExceptionConstant.DATA_FOUND+" with this email:"+accountDetailDto.getEmail());
+		throw new DataFoundException(ExceptionConstant.DATA_FOUND + " with this email:" + accountDetailDto.getEmail());
 
 	}
 
@@ -53,10 +53,10 @@ public class AccountDetailServiceImpl implements AccountDetailService {
 				.orElseThrow(() -> new DataNotFoundException(ExceptionConstant.ROLE_NOT_FOUND));
 		BeanUtils.copyProperties(accountDetailDto, existingAccount);
 		existingAccount.setRole(roleByName);
+		existingAccount.setId(id);
 		AccountDetail updatedAccount = accountDetailRepository.save(existingAccount);
-		AccountDetailDto updatedAccountDto = new AccountDetailDto();
-		BeanUtils.copyProperties(updatedAccount, updatedAccountDto);
+		BeanUtils.copyProperties(updatedAccount, accountDetailDto);
 
-		return updatedAccountDto;
+		return accountDetailDto;
 	}
 }
