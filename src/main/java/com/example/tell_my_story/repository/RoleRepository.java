@@ -9,5 +9,6 @@ import com.example.tell_my_story.entity.Role;
 
 @Repository
 public interface RoleRepository extends JpaRepository<Role, Integer> {
+	
 	Optional<Role> findByRoleName(String roleName);
 }

@@ -1,11 +1,11 @@
 package com.example.tell_my_story.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.tell_my_story.constant.Constant;
@@ -15,7 +15,6 @@ import com.example.tell_my_story.service.AccountDetailService;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Info;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
@@ -28,17 +27,17 @@ public class AccountDetailController {
 	private AccountDetailService accountDetailService;
 
 	@PostMapping("/saveAccount")
-	public ResponseEntity<ResponseDto> addAccount(@RequestBody AccountDetailDto accountDetailDto) {
+	public ResponseEntity<ResponseDto> addAccount(@Valid @RequestBody AccountDetailDto accountDetailDto) {
 		log.info("Account controller called");
-		return ResponseEntity.ok().body(
-				new ResponseDto(false, Constant.ACCOUNT_ADDED, accountDetailService.addAccount(accountDetailDto)));
+		return ResponseEntity
+				.ok(new ResponseDto(false, Constant.ACCOUNT_ADDED, accountDetailService.addAccount(accountDetailDto)));
 	}
 
 	@PutMapping("/update/{id}")
 	public ResponseEntity<ResponseDto> updateAccountDetail(@PathVariable int id,
 			@Valid @RequestBody AccountDetailDto accountDetailDto) {
-		ResponseDto response = new ResponseDto(false, "Account details updated successfully",
-				accountDetailService.updateAccountDetail(id, accountDetailDto));
-		return new ResponseEntity<>(response, HttpStatus.OK);
+
+		return ResponseEntity.ok(new ResponseDto(false, Constant.DATA_UPDATED,
+				accountDetailService.updateAccountDetail(id, accountDetailDto)));
 	}
 }

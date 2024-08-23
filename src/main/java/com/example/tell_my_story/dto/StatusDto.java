@@ -1,7 +1,6 @@
 package com.example.tell_my_story.dto;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,8 +11,7 @@ import lombok.NoArgsConstructor;
 public class StatusDto {
 
 	private int id;
-	
-	@NotNull
-	@NotBlank
+
+	@NotBlank(message = "Status should not be blank")
 	private String status;
 }

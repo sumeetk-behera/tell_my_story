@@ -13,7 +13,7 @@ import lombok.Setter;
 public class RoleDto {
 
 	private int id;
-	
+
 	@NotBlank(message = "role name should not be blank")
 	private String roleName;
 

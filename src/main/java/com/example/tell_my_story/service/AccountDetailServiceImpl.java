@@ -15,8 +15,6 @@ import com.example.tell_my_story.exception.DataNotFoundException;
 import com.example.tell_my_story.repository.AccountDetailRepository;
 import com.example.tell_my_story.repository.RoleRepository;
 
-import jakarta.validation.Valid;
-
 @Service
 public class AccountDetailServiceImpl implements AccountDetailService {
 
@@ -29,19 +27,21 @@ public class AccountDetailServiceImpl implements AccountDetailService {
 	@Override
 	public AccountDetailDto addAccount(AccountDetailDto accountDetailDto) {
 		Optional<AccountDetail> accountByEmail = accountDetailRepository.findByEmail(accountDetailDto.getEmail());
-		if (accountByEmail.isPresent()) {
-			throw new DataFoundException(ExceptionConstant.DATA_FOUND);
-		}
-		Role roleByName = roleRepository.findByRoleName(accountDetailDto.getRoleDto().getRoleName())
-				.orElseThrow(() -> new DataNotFoundException(ExceptionConstant.ROLE_NOT_FOUND));
-		AccountDetail accountDetail = new AccountDetail();
-		BeanUtils.copyProperties(accountDetailDto, accountDetail);
-		accountDetail.setRole(roleByName);
-		AccountDetail newAccountDetail = accountDetailRepository.save(accountDetail);
-		AccountDetailDto savedAccountDetailDto = new AccountDetailDto();
-		BeanUtils.copyProperties(newAccountDetail, savedAccountDetailDto);
 
-		return savedAccountDetailDto;
+		if (!accountByEmail.isPresent()) {
+
+			Role roleByName = roleRepository.findByRoleName(accountDetailDto.getRoleName())
+					.orElseThrow(() -> new DataNotFoundException(ExceptionConstant.ROLE_NOT_FOUND));
+
+			AccountDetail accountDetail = new AccountDetail();
+			BeanUtils.copyProperties(accountDetailDto, accountDetail);
+			accountDetail.setRole(roleByName);
+			AccountDetail newAccountDetail = accountDetailRepository.save(accountDetail);
+			BeanUtils.copyProperties(newAccountDetail, accountDetailDto);
+			return accountDetailDto;
+		}
+		throw new DataFoundException(ExceptionConstant.DATA_FOUND + " with this email:" + accountDetailDto.getEmail());
+
 	}
 
 	@Override
@@ -49,14 +49,14 @@ public class AccountDetailServiceImpl implements AccountDetailService {
 
 		AccountDetail existingAccount = accountDetailRepository.findById(id)
 				.orElseThrow(() -> new DataNotFoundException(ExceptionConstant.ACCOUNT_NOT_FOUND));
-		Role roleByName = roleRepository.findByRoleName(accountDetailDto.getRoleDto().getRoleName())
+		Role roleByName = roleRepository.findByRoleName(accountDetailDto.getRoleName())
 				.orElseThrow(() -> new DataNotFoundException(ExceptionConstant.ROLE_NOT_FOUND));
 		BeanUtils.copyProperties(accountDetailDto, existingAccount);
 		existingAccount.setRole(roleByName);
+		existingAccount.setId(id);
 		AccountDetail updatedAccount = accountDetailRepository.save(existingAccount);
-		AccountDetailDto updatedAccountDto = new AccountDetailDto();
-		BeanUtils.copyProperties(updatedAccount, updatedAccountDto);
+		BeanUtils.copyProperties(updatedAccount, accountDetailDto);
 
-		return updatedAccountDto;
+		return accountDetailDto;
 	}
 }
