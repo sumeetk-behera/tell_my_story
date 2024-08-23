@@ -11,4 +11,5 @@ public class Constant {
 	public static final String CATEGORY_ADDED = "Category Added Successfully";
 	public static final String DATA_UPDATED = "Data updated Successfully";
 	public static final String BLOG_ADDED = "Blog Added Successfully";
+	public static final String DATA_FETCHED = "Data fetched Successfully";
 }

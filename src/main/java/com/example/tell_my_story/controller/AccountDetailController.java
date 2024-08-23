@@ -17,6 +17,9 @@ import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Info;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
 @OpenAPIDefinition(info = @Info(title = "TELL MY STORY APPLICATION"))
@@ -40,4 +43,5 @@ public class AccountDetailController {
 		return ResponseEntity.ok(new ResponseDto(false, Constant.DATA_UPDATED,
 				accountDetailService.updateAccountDetail(id, accountDetailDto)));
 	}
+	
 }

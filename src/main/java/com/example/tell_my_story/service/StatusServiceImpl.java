@@ -22,7 +22,7 @@ public class StatusServiceImpl implements StatusService {
 
 	@Override
 	public StatusDto addStatus(StatusDto statusDto) {
-		Optional<Status> byStatus = statusRepository.findByStatus(statusDto.getStatus());
+		Optional<Status> byStatus = statusRepository.findByStatus(statusDto.getStatusName());
 
 		if (byStatus.isEmpty()) {
 			Status status = new Status();
