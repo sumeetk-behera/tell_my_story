@@ -36,8 +36,8 @@ public class AccountDetailController {
 	@PutMapping("/update/{id}")
 	public ResponseEntity<ResponseDto> updateAccountDetail(@PathVariable int id,
 			@Valid @RequestBody AccountDetailDto accountDetailDto) {
+
 		return ResponseEntity.ok(new ResponseDto(false, Constant.DATA_UPDATED,
 				accountDetailService.updateAccountDetail(id, accountDetailDto)));
-
 	}
 }
