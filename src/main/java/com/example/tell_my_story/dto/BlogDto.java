@@ -1,7 +1,5 @@
 package com.example.tell_my_story.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -30,7 +28,6 @@ public class BlogDto {
 	@NotBlank(message = "Category should not be blank")
 	private String categoryName;
 
-	@JsonIgnore
 	private String status;
 
 }
