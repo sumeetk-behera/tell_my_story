@@ -1,5 +1,7 @@
 package com.example.tell_my_story.service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.example.tell_my_story.constant.ExceptionConstant;
 import com.example.tell_my_story.dto.StatusDto;
 import com.example.tell_my_story.entity.Status;
+import com.example.tell_my_story.exception.DataNotFoundException;
 import com.example.tell_my_story.exception.StatusDataFoundException;
 import com.example.tell_my_story.repository.StatusRepository;
 
@@ -31,6 +34,24 @@ public class StatusServiceImpl implements StatusService {
 		} else {
 			throw new StatusDataFoundException(ExceptionConstant.DATA_FOUND);
 		}
+	}
+
+	@Override
+	public List<StatusDto> getStatus() {
+		List<Status> statusList = statusRepository.findAll();
+
+		List<StatusDto> statusDtos = new ArrayList<>();
+
+		if (!statusList.isEmpty()) {
+
+			for (Status status : statusList) {
+				StatusDto dto = new StatusDto();
+				BeanUtils.copyProperties(status, dto);
+				statusDtos.add(dto);
+			}
+			return statusDtos;
+		}
+		throw new DataNotFoundException(ExceptionConstant.DATA_NOT_FOUND);
 	}
 
 }
