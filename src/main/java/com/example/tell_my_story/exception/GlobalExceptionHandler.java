@@ -18,4 +18,8 @@ public class GlobalExceptionHandler {
 	public ResponseEntity<ResponseDto> dataNotFound(DataNotFoundException e) {
 		return new ResponseEntity<ResponseDto>(new ResponseDto(true, e.getMessage(), null), HttpStatus.BAD_REQUEST);
 	}
+	@ExceptionHandler(CategoryFoundException.class)
+	public ResponseEntity<ResponseDto> dataNotFound(CategoryFoundException e) {
+		return new ResponseEntity<ResponseDto>(new ResponseDto(true, e.getMessage(), null), HttpStatus.BAD_REQUEST);
+	}
 }
