@@ -13,25 +13,24 @@ import lombok.NoArgsConstructor;
 @Data
 public class BlogDto {
 
-	@JsonIgnore
 	private Integer id;
-	
-	@NotBlank (message = "Title must not be blank")
+
+	@NotBlank(message = "Title must not be blank")
 	private String title;
-	
-	@NotBlank (message = "Description must not be blank")
+
+	@NotBlank(message = "Description must not be blank")
 	private String description;
-	
-	@NotNull (message = "UserId must not be null")
+
+	@NotNull(message = "UserId must not be null")
 	private Integer userId;
-	
-	@NotNull (message = "PublisherId must not be null")
+
+	@NotNull(message = "PublisherId must not be null")
 	private Integer publisherId;
-	
-	@NotBlank (message = "Category should not be blank")
+
+	@NotBlank(message = "Category should not be blank")
 	private String categoryName;
-	
+
 	@JsonIgnore
 	private String status;
-	
+
 }
