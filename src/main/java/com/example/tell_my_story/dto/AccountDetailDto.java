@@ -28,6 +28,6 @@ public class AccountDetailDto {
 	@NotNull(message = "age should not be null")
 	private int age;
 
-	@NotBlank
-	private String roleName;
+	@NotBlank 
+	private String roleName; 
 }

@@ -13,6 +13,8 @@ import com.example.tell_my_story.entity.Blog;
 import com.example.tell_my_story.entity.Category;
 import com.example.tell_my_story.entity.Status;
 import com.example.tell_my_story.exception.DataNotFoundException;
+import com.example.tell_my_story.exception.PublisherNotMatchedException;
+import com.example.tell_my_story.exception.UserNotMatchedException;
 import com.example.tell_my_story.repository.AccountDetailRepository;
 import com.example.tell_my_story.repository.BlogRepository;
 import com.example.tell_my_story.repository.CategoryRepository;
@@ -43,20 +45,33 @@ public class BlogServiceImpl implements BlogService {
 
 		Optional<AccountDetail> byId2 = accountDetailRepository.findById(blogDto.getPublisherId());
 
-		if (byId.get().getRole().getRoleName().equalsIgnoreCase("ROLE_USER")
-				&& byId2.get().getRole().getRoleName().equalsIgnoreCase("ROLE_PUBLISHER")) {
+		if (byId.get().getRole().getRoleName().equalsIgnoreCase("ROLE_USER")) {
 
-			Blog blog = new Blog();
-			BeanUtils.copyProperties(blogDto, blog);
-			blog.setStatus(status);
-			blog.setCategory(category);
+			if (byId2.get().getRole().getRoleName().equalsIgnoreCase("ROLE_PUBLISHER")) {
 
-			Blog newBlog = blogRepository.save(blog);
-			BeanUtils.copyProperties(newBlog, blogDto);
-
+				Blog blog = new Blog();
+				BeanUtils.copyProperties(blogDto, blog);
+				
+				blog.setStatus(status);
+				blog.setCategory(category);
+				blog.setUserAccount(byId.get());
+				blog.setPublisherAccount(byId2.get());
+				
+				Blog newBlog = blogRepository.save(blog);
+				
+				BeanUtils.copyProperties(newBlog, blogDto);
+				
+				blogDto.setPublisherId(byId2.get().getId());
+				blogDto.setUserId(byId.get().getId());
+				blogDto.setStatus(status.getStatus());
+				blogDto.setCategoryName(category.getName());
+				
+				return blogDto;
+			}
+			throw new PublisherNotMatchedException(ExceptionConstant.PUBLISHER_NOT_MATCHED);
 		}
+		throw new UserNotMatchedException(ExceptionConstant.USER_NOT_MATCHED);
 
-		return null;
 	}
 
 }

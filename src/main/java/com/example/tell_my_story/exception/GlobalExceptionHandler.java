@@ -22,17 +22,29 @@ public class GlobalExceptionHandler {
 	public ResponseEntity<ResponseDto> dataNotFound(DataNotFoundException e) {
 		return new ResponseEntity<ResponseDto>(new ResponseDto(true, e.getMessage(), null), HttpStatus.BAD_REQUEST);
 	}
+
 	@ExceptionHandler(CategoryFoundException.class)
-	public ResponseEntity<ResponseDto> dataNotFound(CategoryFoundException e) {
+	public ResponseEntity<ResponseDto> categoryFoundException(CategoryFoundException e) {
+		return new ResponseEntity<ResponseDto>(new ResponseDto(true, e.getMessage(), null), HttpStatus.BAD_REQUEST);
+	}
+
+	@ExceptionHandler(PublisherNotMatchedException.class)
+	public ResponseEntity<ResponseDto> publisherNotMatchedException(PublisherNotMatchedException e) {
 		return new ResponseEntity<ResponseDto>(new ResponseDto(true, e.getMessage(), null), HttpStatus.BAD_REQUEST);
 	}
 	
+	@ExceptionHandler(UserNotMatchedException.class)
+	public ResponseEntity<ResponseDto> userNotMatchedException(UserNotMatchedException e) {
+		return new ResponseEntity<ResponseDto>(new ResponseDto(true, e.getMessage(), null), HttpStatus.BAD_REQUEST);
+	}
+
 	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public Map<String, String> handleInvalidArguments(MethodArgumentNotValidException ex){
-		Map<String,String> errorMap= new HashMap<>();
-		ex.getBindingResult().getFieldErrors().forEach(error->{
+	public Map<String, String> handleInvalidArguments(MethodArgumentNotValidException ex) {
+		Map<String, String> errorMap = new HashMap<>();
+		ex.getBindingResult().getFieldErrors().forEach(error -> {
 			errorMap.put(error.getField(), error.getDefaultMessage());
 		});
 		return errorMap;
 	}
+
 }
