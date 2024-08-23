@@ -1,9 +1,12 @@
 package com.example.tell_my_story.entity;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,5 +25,8 @@ public class Status {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String status;
+	
+	@OneToMany(mappedBy = "status")
+	private List<Blog> blog;
 
 }
