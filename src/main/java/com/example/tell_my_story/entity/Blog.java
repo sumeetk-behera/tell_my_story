@@ -1,7 +1,5 @@
 package com.example.tell_my_story.entity;
 
-import java.util.List;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,44 +8,45 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Entity
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
-@Table(name = "account_detail")
-public class AccountDetail {
+@Entity
+@Table(name = "blog")
+public class Blog {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 	
-	@Column(name = "name")
-	private String name;
+	@Column(name = "title")
+	private String title;
 	
-	@Column(name = "email")
-	private String email;
-	
-	@Column(name = "password")
-	private String password;
-	
-	@Column(name = "age")
-	private int age;
+	@Column(name = "description")
+	private String description;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "role_id")
-	private Role role; 
-
-	@OneToMany(mappedBy = "publisherAccount")
-	private List<Blog> publisherBlog;
+	@JoinColumn(name = "category_id")
+	private Category category;
 	
-	@OneToMany(mappedBy = "userAccount")
-	private List<Blog> userBlog;
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "publisher_id")
+	private AccountDetail publisherAccount;
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "user_id")
+	private AccountDetail userAccount;
+	
+	@ManyToOne
+	@JoinColumn(name = "status_id")
+	private Status status;
+	
+	
+	
+	
 }
