@@ -1,5 +1,7 @@
 package com.example.tell_my_story.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -13,6 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AccountDetailDto {
 
+	@JsonIgnore
 	private int id;
 
 	@NotBlank(message = "Name Should Not be Blank")
