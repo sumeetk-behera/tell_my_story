@@ -1,5 +1,6 @@
 package com.example.tell_my_story.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
@@ -26,19 +27,24 @@ public class AccountDetailServiceImpl implements AccountDetailService {
 	@Override
 	public AccountDetailDto addAccount(AccountDetailDto accountDetailDto) {
 		Optional<AccountDetail> accountByEmail = accountDetailRepository.findByEmail(accountDetailDto.getEmail());
-		if (!accountByEmail.isPresent()) {
 
-			Role roleByName = roleRepository.findByRoleName(accountDetailDto.getRoleDto().getRoleName())
-					.orElseThrow(() -> new DataNotFoundException(ExceptionConstant.ROLE_NOT_FOUND));
+		if (accountByEmail.isPresent())
+			throw new DataFoundException(ExceptionConstant.DATA_FOUND);
 
-			AccountDetail accountDetail = new AccountDetail();
-			BeanUtils.copyProperties(accountDetailDto, accountDetail);
-			accountDetail.setRole(roleByName);
-			AccountDetail newAccountDetail = accountDetailRepository.save(accountDetail);
-			BeanUtils.copyProperties(newAccountDetail, accountDetailDto);
-			return accountDetailDto;
-		}
-         throw new DataFoundException(ExceptionConstant.DATA_FOUND);
+		List<Role> all = roleRepository.findAll();
+		System.out.println(all);
+		
+		Role role = roleRepository.findByRoleName(accountDetailDto.getRoleName()).orElseThrow(() -> new DataNotFoundException(ExceptionConstant.ROLE_NOT_FOUND));
+		
+		
+		AccountDetail accountDetail = new AccountDetail();
+		BeanUtils.copyProperties(accountDetailDto, accountDetail);
+		accountDetail.setRole(role);
+		
+		AccountDetail newAccountDetail = accountDetailRepository.save(accountDetail);
+		BeanUtils.copyProperties(newAccountDetail, accountDetailDto);
+		return accountDetailDto;
+
 	}
 
 }

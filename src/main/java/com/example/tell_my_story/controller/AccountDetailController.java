@@ -13,8 +13,7 @@ import com.example.tell_my_story.service.AccountDetailService;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
-import jakarta.validation.Valid;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.slf4j.Slf4j;;
 
 @RestController
 @OpenAPIDefinition(info = @Info(title = "TELL MY STORY APPLICATION"))

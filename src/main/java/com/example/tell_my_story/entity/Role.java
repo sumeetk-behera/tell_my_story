@@ -23,3 +23,4 @@ public class Role {
 	@OneToMany(mappedBy = "role")
 	private List<AccountDetail> accUser;
 }
+

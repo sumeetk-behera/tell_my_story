@@ -17,3 +17,4 @@ public class StatusDto {
 	@NotBlank
 	private String status;
 }
+ 
