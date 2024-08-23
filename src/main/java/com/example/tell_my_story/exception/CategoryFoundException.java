@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CategoryFoundException extends RuntimeException {
 
-	private static final long serialVersionUID = 1L;
+	
 	public String message;
 }

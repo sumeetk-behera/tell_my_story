@@ -10,6 +10,6 @@ import com.example.tell_my_story.entity.Status;
 @Repository
 public interface StatusRepository extends JpaRepository<Status, Integer> {
 	
-	Optional<Status> findByStatus(String status);
+	Optional<Status> findByStatusName(String status);
 
 }
