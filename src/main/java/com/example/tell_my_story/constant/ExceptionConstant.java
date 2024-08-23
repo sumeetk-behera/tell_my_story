@@ -10,5 +10,8 @@ public class ExceptionConstant {
 	public static final String ACCOUNT_NOT_FOUND = null;
 	public static final String PUBLISHER_NOT_MATCHED = "Publisher not matched";
 	public static final String USER_NOT_MATCHED = "User not matched";
+	public static final String CATEGORY_FOUND = "Category Already Present";
+	
+	
 	
 }
